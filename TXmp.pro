@@ -28,7 +28,3 @@ DISTFILES +=
 
 RESOURCES += \
     Resources.qrc
-
-LIBS += "/usr/lib/x86_64-linux-gnu/libpulse-mainloop-glib.so.0" -lpulse-mainloop-glib \
-        "/usr/lib/x86_64-linux-gnu/libpulse.so.0" -lpulse\
-        "/lib/x86_64-linux-gnu/libglib-2.0.so.0" -lglib-2.0
