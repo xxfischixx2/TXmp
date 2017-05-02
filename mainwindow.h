@@ -21,6 +21,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void updateLibrary();
+
+    void updateTime();
+
+    void updatePlaybackOrder();
+
     QStringList library;
     QStringList pathlist;
     QStringList filters;
@@ -56,13 +62,7 @@ private slots:
 
     void on_actionDelete_triggered();
 
-    void updateLibrary();
-
     void on_playbackOrder_currentIndexChanged(int index);
-
-    void updatePlaybackOrder();
-
-    void updateTime();
     
     void on_actionClear_triggered();
 
