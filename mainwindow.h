@@ -9,6 +9,7 @@
 #include <QSettings>
 #include <QString>
 #include <QTime>
+
 namespace Ui {
 class MainWindow;
 }
@@ -20,12 +21,6 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
-    void updateLibrary();
-
-    void updateTime();
-
-    void updatePlaybackOrder();
 
     QStringList library;
     QStringList pathlist;
@@ -67,6 +62,13 @@ private slots:
     void on_actionClear_triggered();
 
 private:
+
+    void updateLibrary();
+
+    void updateTime();
+
+    void updatePlaybackOrder();
+
     Ui::MainWindow *ui;
     QMediaPlayer *player;
     QMediaPlaylist *playlist;
