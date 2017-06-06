@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia
+QT       += core gui multimedia \
+            testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,18 +14,15 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    settings.cpp \
-    fmediaplayer.cpp
+           mainwindow.cpp \
+           settings.cpp \
+    faudioplayer.cpp
 
 HEADERS  += mainwindow.h \
-    settings.h \
-    fmediaplayer.h
+            settings.h \
+    faudioplayer.h
 
 FORMS    += mainwindow.ui \
-    settings.ui
+            settings.ui
 
-DISTFILES +=
-
-RESOURCES += \
-    Resources.qrc
+RESOURCES += Resources.qrc

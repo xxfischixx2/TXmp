@@ -20,10 +20,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QFileInfo fName;
     player = new QMediaPlayer(this);
     playlist = new QMediaPlaylist(this);
+    time = new QTime;
     settings = new QSettings;
     FAudioPlayer audioPlayer;
     QUrl mediaUrl;
-    mediaUrl.setUrl("/home/xystem/Documents/Music/W&W/test.txt");
+    mediaUrl.setUrl("/home/xystem/Documents/Music/W&W/W&W - Bigfoot.mp3");
     audioPlayer.setMedia(mediaUrl);
     audioPlayer.play();
 
