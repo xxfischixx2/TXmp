@@ -8,7 +8,7 @@ QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = TXMplayer_Fischer-Edition
+TARGET = TXmp
 TEMPLATE = app
 
 
