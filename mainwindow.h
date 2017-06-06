@@ -9,6 +9,7 @@
 #include <QSettings>
 #include <QString>
 #include <QTime>
+
 namespace Ui {
 class MainWindow;
 }
@@ -56,17 +57,18 @@ private slots:
 
     void on_actionDelete_triggered();
 
-    void updateLibrary();
-
     void on_playbackOrder_currentIndexChanged(int index);
-
-    void updatePlaybackOrder();
-
-    void updateTime();
     
     void on_actionClear_triggered();
 
 private:
+
+    void updateLibrary();
+
+    void updateTime();
+
+    void updatePlaybackOrder();
+
     Ui::MainWindow *ui;
     QMediaPlayer *player;
     QMediaPlaylist *playlist;
