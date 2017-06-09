@@ -8,7 +8,6 @@
 #include <QDir>
 #include <QSettings>
 #include <QString>
-#include <QTime>
 
 namespace Ui {
 class MainWindow;

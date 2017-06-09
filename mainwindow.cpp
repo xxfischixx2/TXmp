@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     settings = new QSettings;
     FAudioPlayer audioPlayer;
     QUrl mediaUrl;
-    mediaUrl.setUrl("/home/xystem/Documents/Music/W&W/test.txt");
+    mediaUrl.setUrl("W&W & Headhunterz - Shocker (Original Mix).wav");
     audioPlayer.setMedia(mediaUrl);
     audioPlayer.play();
 

@@ -6,7 +6,8 @@
 #include <QAudioOutput>
 #include <QUrl>
 #include <QAudioDecoder>
-#include <QFileDevice>
+#include <QFile>
+#include <QBuffer>
 
 
 class FAudioPlayer : public QObject
@@ -17,15 +18,13 @@ public:
 
     explicit FAudioPlayer(QObject *parent = 0);
 
-    void test();
+    void setMedia(QUrl mediaUrl);
 
 signals:
 
 
 
 public slots:
-
-    void setMedia(QUrl mediaUrl);
 
     //void setVolume(int volume);
 
@@ -35,13 +34,16 @@ public slots:
 
     //void stop();
 
+    void on_BufferReady();
+
 private:
 
     QAudioBuffer *audioBuffer;
     QAudioOutput *audioOutputDevice;
     QAudioDecoder *audioDecoder;
     QUrl *mediaUrl;
-    QFileDevice *fileDevice;
+    QFile *fileDevice;
+    QBuffer *fileBuffer;
 
 };
 
