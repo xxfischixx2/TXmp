@@ -18,11 +18,14 @@
     <selectedon>:/Images/Technix_favicon.jpg</selectedon>
    </iconset>
   </property>
+  <property name="whatsThis">
+   <string>fgyfhgth</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QTabWidget" name="settingTabs">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="media">
       <attribute name="title">
@@ -86,17 +89,75 @@
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QCheckBox" name="autoPlay">
-         <property name="text">
-          <string>Auto Play</string>
-         </property>
-         <property name="tristate">
-          <bool>false</bool>
-         </property>
-        </widget>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="autoPlay">
+           <property name="toolTip">
+            <string>checked: autoplays next song, unchecked: it doesn't</string>
+           </property>
+           <property name="toolTipDuration">
+            <number>0</number>
+           </property>
+           <property name="text">
+            <string>Autoplay</string>
+           </property>
+           <property name="tristate">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="continuePlayingPlaySelected">
+           <property name="toolTip">
+            <string>Checked: pressing play continues playing, unchecked: pressing play </string>
+           </property>
+           <property name="toolTipDuration">
+            <number>0</number>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="text">
+            <string>Continue playing/Play selected</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QComboBox" name="playbackOrder">
+         <property name="toolTip">
+          <string>Change playback order</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>0</number>
+         </property>
          <item>
           <property name="text">
            <string>Repeat Track</string>
@@ -133,11 +194,16 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>path</tabstop>
   <tabstop>search</tabstop>
   <tabstop>add</tabstop>
   <tabstop>Delete</tabstop>
+  <tabstop>path</tabstop>
   <tabstop>paths</tabstop>
+  <tabstop>settingTabs</tabstop>
+  <tabstop>autoPlay</tabstop>
+  <tabstop>playbackOrder</tabstop>
+  <tabstop>continuePlayingPlaySelected</tabstop>
+  <tabstop>ok</tabstop>
  </tabstops>
  <resources/>
  <connections>

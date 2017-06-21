@@ -19,8 +19,8 @@ Settings::Settings(QWidget *parent) :
         ui->paths->addItem(pathlist[i]);
     }
 
-    ui->autoPlay->setTristate(settings->value("playback/autoPlay", qVariantFromValue(true)).toBool());
     ui->autoPlay->setChecked(settings->value("playback/autoPlay", qVariantFromValue(true)).toBool());
+    ui->continuePlayingPlaySelected->setChecked(settings->value("playback/continuePlayingPlaySelected", qVariantFromValue(true)).toBool());
     ui->playbackOrder->setCurrentIndex(settings->value("playback/playbackOrder", qVariantFromValue(1)).toInt());
 }
 
@@ -66,4 +66,9 @@ void Settings::on_autoPlay_toggled(bool checked)
 void Settings::on_playbackOrder_currentIndexChanged(int index)
 {
     settings->setValue("playback/playbackOrder", index);
+}
+
+void Settings::on_continuePlayingPlaySelected_toggled(bool checked)
+{
+    settings->setValue("playback/continuePlayingPlaySelected", checked);
 }

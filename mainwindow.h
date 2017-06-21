@@ -48,9 +48,9 @@ private slots:
 
     void on_positionChanged(qint64 position);
 
-    void on_library_cellDoubleClicked(int row, int column);
+    void on_libraryTable_cellDoubleClicked(int row, int column);
 
-    void on_playlist_cellDoubleClicked(int row, int column);
+    void on_playlistTable_cellDoubleClicked(int row, int column);
 
     void on_currentIndexChanged(int position);
 
@@ -59,6 +59,8 @@ private slots:
     void on_playbackOrder_currentIndexChanged(int index);
     
     void on_actionClear_triggered();
+
+    void on_actionAbout_triggered();
 
 private:
 
@@ -73,7 +75,6 @@ private:
     QMediaPlaylist *playlist;
     QTime *time;
     QSettings *settings;
-    QAudioFormat format;
 };
 
 #endif // MAINWINDOW_H

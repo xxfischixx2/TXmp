@@ -15,12 +15,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
            mainwindow.cpp \
-           settings.cpp \
-    faudioplayer.cpp
+           settings.cpp
 
 HEADERS  += mainwindow.h \
-            settings.h \
-    faudioplayer.h
+            settings.h
 
 FORMS    += mainwindow.ui \
             settings.ui

@@ -31,6 +31,8 @@ private slots:
 
     void on_playbackOrder_currentIndexChanged(int index);
 
+    void on_continuePlayingPlaySelected_toggled(bool checked);
+
 private:
     Ui::Settings *ui;
     QSettings *settings;

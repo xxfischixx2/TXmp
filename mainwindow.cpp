@@ -3,9 +3,10 @@
 #include "settings.h"
 #include <QSettings>
 #include <QDirIterator>
-#include <faudioplayer.h>
 #include <QUrl>
 #include <QDebug>
+#include <QtMultimedia>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -21,31 +22,26 @@ MainWindow::MainWindow(QWidget *parent) :
     player = new QMediaPlayer(this);
     playlist = new QMediaPlaylist(this);
     settings = new QSettings;
-    FAudioPlayer audioPlayer;
-    QUrl mediaUrl;
-    mediaUrl.setUrl("W&W & Headhunterz - Shocker (Original Mix).wav");
-    audioPlayer.setMedia(mediaUrl);
-    audioPlayer.play();
 
     //UI-Setup
 
     this->move(settings->value("window/position", qVariantFromValue(QPoint(1000, 1000))).toPoint());
     this->resize(settings->value("window/size", qVariantFromValue(QSize(617, 485))).toSize());
 
-    ui->library->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->library->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->library->setWordWrap(false);
-    ui->library->horizontalHeader()->setStretchLastSection(true);
-    ui->library->horizontalHeader()->setHighlightSections(false);
-    ui->library->verticalHeader()->setVisible(false);
+    ui->libraryTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->libraryTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->libraryTable->setWordWrap(false);
+    ui->libraryTable->horizontalHeader()->setStretchLastSection(true);
+    ui->libraryTable->horizontalHeader()->setHighlightSections(false);
+    ui->libraryTable->verticalHeader()->setVisible(false);
 
-    ui->playlist->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->playlist->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->playlist->setWordWrap(false);
-    ui->playlist->horizontalHeader()->setStretchLastSection(true);
-    ui->playlist->horizontalHeader()->setHighlightSections(false);
-    ui->playlist->verticalHeader()->setVisible(false);
-    //ui->playlist->setDragDropMode(QAbstractItemView::InternalMove);
+    ui->playlistTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->playlistTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->playlistTable->setWordWrap(false);
+    ui->playlistTable->horizontalHeader()->setStretchLastSection(true);
+    ui->playlistTable->horizontalHeader()->setHighlightSections(false);
+    ui->playlistTable->verticalHeader()->setVisible(false);
+    //ui->playlistTable->setDragDropMode(QAbstractItemView::InternalMove);
 
     ui->playbackOrder->setCurrentIndex(settings->value("playback/playbackOrder", qVariantFromValue(1)).toInt());
 
@@ -63,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     player->setPlaylist(playlist);
     pList = settings->value("media/playlists/playlist").toStringList();
-    ui->playlist->setRowCount(pList.count());
+    ui->playlistTable->setRowCount(pList.count());
     player->setVolume(settings->value("playback/volume", qVariantFromValue(100)).toInt());
     ui->volume->setSliderPosition(settings->value("playback/volume", qVariantFromValue(100)).toInt());
 
@@ -71,7 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
         fName.setFile(pList[i]);
         playlist->addMedia(QUrl::fromLocalFile(pList[i]));
-        ui->playlist->setItem(i, 0, new QTableWidgetItem(fName.fileName()));
+        ui->playlistTable->setItem(i, 0, new QTableWidgetItem(fName.fileName()));
     }
 
     updatePlaybackOrder();
@@ -92,9 +88,9 @@ void MainWindow::updateLibrary()
 
     library.clear();
 
-    for(int i = 0;i < ui->library->rowCount();i++){
+    for(int i = 0;i < ui->libraryTable->rowCount();i++){
 
-        delete ui->library->item(i, 0);
+        delete ui->libraryTable->item(i, 0);
     }
 
     pathlist = settings->value("media/library").toStringList();
@@ -111,12 +107,12 @@ void MainWindow::updateLibrary()
 
     }
 
-    ui->library->setRowCount(library.count());
+    ui->libraryTable->setRowCount(library.count());
 
     for(int i = 0;i < library.count();i++){
 
         fName.setFile(library[i]);
-        ui->library->setItem(i, 0, new QTableWidgetItem(fName.fileName()));
+        ui->libraryTable->setItem(i, 0, new QTableWidgetItem(fName.fileName()));
     }
 
 }
@@ -210,22 +206,19 @@ void MainWindow::on_actionPlay_triggered()
 {
     QFileInfo fName;
 
-    if(player->mediaStatus() != 1){
-
-        if(player->state() == 2){
+       if(player->state() == 2 && settings->value("playback/continuePlayingPlaySelected", qVariantFromValue(true)).toBool() == true){
 
             player->play();
         }
 
         else{
 
-            player->stop();
+            playlist->setCurrentIndex(ui->playlistTable->currentRow());
             player->play();
         }
 
         fName.setFile(pList[playlist->currentIndex()]);
         this->setWindowTitle("TXmp | " + fName.fileName());
-    }
 
 }
 
@@ -269,7 +262,10 @@ void MainWindow::on_actionSettings_triggered()
     sets.setModal(true);
     sets.exec();
 
-    updateLibrary();
+    if(settings->value("media/library").toStringList() != pathlist){
+        updateLibrary();
+    }
+
     updatePlaybackOrder();
     ui->playbackOrder->setCurrentIndex(settings->value("playback/playbackOrder", qVariantFromValue(1)).toInt());
 
@@ -285,19 +281,19 @@ void MainWindow::on_positionChanged(qint64 position)
     updateTime();
 }
 
-void MainWindow::on_library_cellDoubleClicked(int row, int column)
+void MainWindow::on_libraryTable_cellDoubleClicked(int row, int column)
 {
     QFileInfo fName;
 
-    ui->playlist->setRowCount(ui->playlist->rowCount()+1);
+    ui->playlistTable->setRowCount(ui->playlistTable->rowCount()+1);
     fName.setFile(library[row]);
     pList << library[row];
     playlist->addMedia(QUrl::fromLocalFile(library[row]));
-    ui->playlist->setItem(ui->playlist->rowCount() - 1, 0,new QTableWidgetItem(fName.fileName()));
+    ui->playlistTable->setItem(ui->playlistTable->rowCount() - 1, 0,new QTableWidgetItem(fName.fileName()));
     settings->setValue("media/playlists/playlist", pList);
 }
 
-void MainWindow::on_playlist_cellDoubleClicked(int row, int column)
+void MainWindow::on_playlistTable_cellDoubleClicked(int row, int column)
 {
     playlist->setCurrentIndex(row);
     player->play();
@@ -329,22 +325,22 @@ void MainWindow::on_currentIndexChanged(int position)
 
 void MainWindow::on_actionDelete_triggered()
 {
-    int currentRow = ui->playlist->currentRow();
+    int currentRow = ui->playlistTable->currentRow();
 
     playlist->removeMedia(currentRow);
-    pList.removeAt(ui->playlist->currentRow());
-    delete ui->playlist->currentItem();
+    pList.removeAt(ui->playlistTable->currentRow());
+    delete ui->playlistTable->currentItem();
 
-    for(int i = currentRow;i < ui->playlist->rowCount();i++){
+    for(int i = currentRow;i < ui->playlistTable->rowCount();i++){
 
-        if(currentRow != ui->playlist->rowCount() - 1){
+        if(currentRow != ui->playlistTable->rowCount() - 1){
 
-            ui->playlist->setItem(i, 0, ui->playlist->takeItem(i + 1, 0));
+            ui->playlistTable->setItem(i, 0, ui->playlistTable->takeItem(i + 1, 0));
         }
 
     }
 
-    ui->playlist->setRowCount(pList.count());
+    ui->playlistTable->setRowCount(pList.count());
     settings->setValue("media/playlists/playlist", pList);
 }
 
@@ -358,12 +354,25 @@ void MainWindow::on_actionClear_triggered()
 {
     playlist->clear();
 
-    for(int i = 0;i < ui->playlist->rowCount();i++){
+    for(int i = 0;i < ui->playlistTable->rowCount();i++){
 
-        delete ui->playlist->item(i, 0);
+        delete ui->playlistTable->item(i, 0);
     }
 
-    ui->playlist->setRowCount(0);
+    ui->playlistTable->setRowCount(0);
     pList.clear();
     settings->setValue("media/playlists/playlist", pList);
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    //QMessageBox::about(this, "About TechniX media player", "<b>TXmp v1.0 Beta</b> <br>Released on: 21.06.2017 <br>Written by Maximilian Fischer for CSG TechniX");
+
+    QMessageBox aboutTXmp;
+
+    aboutTXmp.addButton(QMessageBox::Close);
+    aboutTXmp.setDefaultButton(QMessageBox::Close);
+    aboutTXmp.setText("<b>TXmp v1.0 Beta</b> <br>Released on: 21.06.2017 <br>Written by Maximilian Fischer for CSG TechniX");
+    aboutTXmp.setWindowTitle("About TechniX media player");
+    aboutTXmp.exec();
 }
