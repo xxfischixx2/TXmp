@@ -14,9 +14,8 @@
    <string>TXmp</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <selectedon>:/Images/Technix_favicon.jpg</selectedon>
-   </iconset>
+   <iconset resource="Resources.qrc">
+    <normaloff>:/Images/TXmpIcon.ico</normaloff>:/Images/TXmpIcon.ico</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">

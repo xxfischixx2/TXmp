@@ -11,5 +11,6 @@
         <file>Stop.png</file>
         <file>Technix_favicon.jpg</file>
         <file>Pause.jpg</file>
+        <file>TXmpIcon.ico</file>
     </qresource>
 </RCC>
