@@ -12,16 +12,8 @@ Settings::Settings(QWidget *parent) :
     ui->setupUi(this);
     settings = new QSettings;
 
-    pathlist = settings->value("media/library").toStringList();
+    updateSettings();
 
-    for(int i = 0;i < pathlist.count();i++){
-
-        ui->paths->addItem(pathlist[i]);
-    }
-
-    ui->autoPlay->setChecked(settings->value("playback/autoPlay", qVariantFromValue(true)).toBool());
-    ui->continuePlayingPlaySelected->setChecked(settings->value("playback/continuePlayingPlaySelected", qVariantFromValue(true)).toBool());
-    ui->playbackOrder->setCurrentIndex(settings->value("playback/playbackOrder", qVariantFromValue(1)).toInt());
 }
 
 
@@ -50,12 +42,8 @@ void Settings::on_Delete_clicked()
 
 void Settings::on_search_clicked()
 {
-    QString path = "";
 
-    path = QFileDialog::getExistingDirectory(this, tr("Select Directory"), "C://");
-    pathlist.append(path);
-    settings->setValue("media/library", pathlist);
-    ui->paths->addItem(path);
+    ui->path->setText(QFileDialog::getExistingDirectory(this, tr("Select Directory"), "C://"));
 }
 
 void Settings::on_autoPlay_toggled(bool checked)
@@ -71,4 +59,26 @@ void Settings::on_playbackOrder_currentIndexChanged(int index)
 void Settings::on_continuePlayingPlaySelected_toggled(bool checked)
 {
     settings->setValue("playback/continuePlayingPlaySelected", checked);
+}
+
+void Settings::on_reset_clicked()
+{
+    settings->clear();
+    updateSettings();
+}
+
+void Settings::updateSettings()
+{
+    ui->autoPlay->setChecked(settings->value("playback/autoPlay", qVariantFromValue(true)).toBool());
+    ui->continuePlayingPlaySelected->setChecked(settings->value("playback/continuePlayingPlaySelected", qVariantFromValue(true)).toBool());
+    ui->playbackOrder->setCurrentIndex(settings->value("playback/playbackOrder", qVariantFromValue(1)).toInt());
+
+    ui->paths->clear();
+
+    pathlist = settings->value("media/library").toStringList();
+
+    for(int i = 0;i < pathlist.count();i++){
+
+        ui->paths->addItem(pathlist[i]);
+    }
 }

@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QtMultimedia>
 #include <QMessageBox>
+#include "CLucene.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent) :
     player = new QMediaPlayer(this);
     playlist = new QMediaPlaylist(this);
     settings = new QSettings;
+
+
 
     //UI-Setup
 
@@ -378,4 +381,9 @@ void MainWindow::on_actionAbout_triggered()
     aboutTXmp.setWindowTitle("About TechniX media player");
     aboutTXmp.setIconPixmap(QPixmap::fromImage(icon, Qt::AutoColor));
     aboutTXmp.exec();
+}
+
+void MainWindow::on_actionUpdateLibrary_triggered()
+{
+    updateLibrary();
 }

@@ -33,7 +33,12 @@ private slots:
 
     void on_continuePlayingPlaySelected_toggled(bool checked);
 
+    void on_reset_clicked();
+
 private:
+
+    void updateSettings();
+
     Ui::Settings *ui;
     QSettings *settings;
 

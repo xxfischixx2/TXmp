@@ -91,25 +91,49 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QLabel" name="libLabel">
-          <property name="text">
-           <string>Library</string>
+         <widget class="QTabWidget" name="libraryTabWidget">
+          <property name="currentIndex">
+           <number>1</number>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QTableWidget" name="libraryTable">
-          <property name="showGrid">
-           <bool>false</bool>
-          </property>
-          <column>
-           <property name="text">
-            <string>Name</string>
-           </property>
-          </column>
+          <widget class="QWidget" name="libraryTab">
+           <attribute name="title">
+            <string>Library</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QTableWidget" name="libraryTable">
+              <property name="showGrid">
+               <bool>false</bool>
+              </property>
+              <column>
+               <property name="text">
+                <string>Name</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="searchTab">
+           <attribute name="title">
+            <string>Search</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QLineEdit" name="searchBar"/>
+            </item>
+            <item>
+             <widget class="Line" name="line">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="searchResultList"/>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
        </layout>
@@ -210,6 +234,8 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionUpdateLibrary"/>
+    <addaction name="separator"/>
     <addaction name="actionSettings"/>
    </widget>
    <widget class="QMenu" name="menuPlaylist">
@@ -341,6 +367,11 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionUpdateLibrary">
+   <property name="text">
+    <string>Update Library</string>
    </property>
   </action>
  </widget>

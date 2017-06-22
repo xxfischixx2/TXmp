@@ -62,6 +62,8 @@ private slots:
 
     void on_actionAbout_triggered();
 
+    void on_actionUpdateLibrary_triggered();
+
 private:
 
     void updateLibrary();
