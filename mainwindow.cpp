@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //UI-Setup
 
-    this->move(settings->value("window/position", qVariantFromValue(QPoint(1000, 1000))).toPoint());
+    this->move(settings->value("window/position", qVariantFromValue(QPoint(20, 20))).toPoint());
     this->resize(settings->value("window/size", qVariantFromValue(QSize(617, 485))).toSize());
 
     ui->libraryTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -303,7 +303,7 @@ void MainWindow::on_currentIndexChanged(int position)
 {
     if(settings->value("playback/autoPlay", qVariantFromValue(true)).toBool() == false){
 
-        player->stop();
+        player->pause();
     }
 
     if(position == -1){
