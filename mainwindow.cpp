@@ -366,13 +366,16 @@ void MainWindow::on_actionClear_triggered()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    //QMessageBox::about(this, "About TechniX media player", "<b>TXmp v1.0 Beta</b> <br>Released on: 21.06.2017 <br>Written by Maximilian Fischer for CSG TechniX");
+    QMessageBox aboutTXmp(this);
+    QImage icon;
 
-    QMessageBox aboutTXmp;
+    icon.load(":/Images/TXmpIcon.ico");
+    icon = icon.scaled(100, 100);
 
     aboutTXmp.addButton(QMessageBox::Close);
     aboutTXmp.setDefaultButton(QMessageBox::Close);
-    aboutTXmp.setText("<b>TXmp v1.0 Beta</b> <br>Released on: 21.06.2017 <br>Written by Maximilian Fischer for CSG TechniX");
+    aboutTXmp.setText("<b>TXmp v1.0 Beta</b> <br><br>Released on: 21.06.2017 <br><br>Written by Maximilian Fischer <br>For CSG TechniX");
     aboutTXmp.setWindowTitle("About TechniX media player");
+    aboutTXmp.setIconPixmap(QPixmap::fromImage(icon, Qt::AutoColor));
     aboutTXmp.exec();
 }
