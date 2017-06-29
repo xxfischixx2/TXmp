@@ -25,7 +25,7 @@
    <item>
     <widget class="QTabWidget" name="settingTabs">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="media">
       <attribute name="title">
@@ -87,98 +87,193 @@
       <attribute name="title">
        <string>Playback</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="autoPlay">
+             <property name="toolTip">
+              <string>checked: autoplays next song, unchecked: it doesn't</string>
+             </property>
+             <property name="toolTipDuration">
+              <number>0</number>
+             </property>
+             <property name="text">
+              <string>Autoplay</string>
+             </property>
+             <property name="tristate">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="continuePlayingPlaySelected">
+             <property name="toolTip">
+              <string>Checked: pressing play continues playing, unchecked: pressing play </string>
+             </property>
+             <property name="toolTipDuration">
+              <number>0</number>
+             </property>
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="text">
+              <string>Continue playing/Play selected</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QCheckBox" name="autoPlay">
+          <widget class="QComboBox" name="playbackOrder">
            <property name="toolTip">
-            <string>checked: autoplays next song, unchecked: it doesn't</string>
+            <string>Change playback order</string>
            </property>
            <property name="toolTipDuration">
             <number>0</number>
            </property>
-           <property name="text">
-            <string>Autoplay</string>
-           </property>
-           <property name="tristate">
-            <bool>false</bool>
-           </property>
+           <item>
+            <property name="text">
+             <string>Repeat Track</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Default</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Repeat Playlist</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Random</string>
+            </property>
+           </item>
           </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="continuePlayingPlaySelected">
-           <property name="toolTip">
-            <string>Checked: pressing play continues playing, unchecked: pressing play </string>
-           </property>
-           <property name="toolTipDuration">
-            <number>0</number>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
-           </property>
-           <property name="text">
-            <string>Continue playing/Play selected</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
          </item>
         </layout>
        </item>
        <item>
-        <widget class="QComboBox" name="playbackOrder">
-         <property name="toolTip">
-          <string>Change playback order</string>
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
-         <property name="toolTipDuration">
-          <number>0</number>
-         </property>
-         <item>
-          <property name="text">
-           <string>Repeat Track</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Default</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Repeat Playlist</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Random</string>
-          </property>
-         </item>
         </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="autoXfade">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>AutoXFade</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QCheckBox" name="autoFadeIn">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>AutoFadeIn</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="FadeInLabel">
+           <property name="text">
+            <string>FadeIn-Time:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="fadeInTime"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QCheckBox" name="autoFadeOut">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>AutoFadeOut</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="fadeOutLabel">
+           <property name="text">
+            <string>FadeOut-Time:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="fadeOutTime"/>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -215,7 +310,6 @@
   <tabstop>paths</tabstop>
   <tabstop>settingTabs</tabstop>
   <tabstop>autoPlay</tabstop>
-  <tabstop>playbackOrder</tabstop>
   <tabstop>continuePlayingPlaySelected</tabstop>
   <tabstop>ok</tabstop>
  </tabstops>

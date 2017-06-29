@@ -35,6 +35,14 @@ private slots:
 
     void on_reset_clicked();
 
+    void on_autoFadeIn_toggled(bool checked);
+
+    void on_autoFadeOut_toggled(bool checked);
+
+    void on_fadeOutTime_returnPressed();
+
+    void on_fadeInTime_returnPressed();
+
 private:
 
     void updateSettings();

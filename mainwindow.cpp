@@ -1,13 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "settings.h"
-#include <QSettings>
-#include <QDirIterator>
-#include <QUrl>
-#include <QDebug>
 #include <QtMultimedia>
 #include <QMessageBox>
-#include "CLucene.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -23,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
     player = new QMediaPlayer(this);
     playlist = new QMediaPlaylist(this);
     settings = new QSettings;
-
 
 
     //UI-Setup
@@ -53,6 +47,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(player, &QMediaPlayer::positionChanged, this, &MainWindow::on_positionChanged);
     connect(player, &QMediaPlayer::durationChanged, this, &MainWindow::on_durationChanged);
     connect(playlist, &QMediaPlaylist::currentIndexChanged, this, &MainWindow::on_currentIndexChanged);
+    //connect(ui->actionBack, SIGNAL(QAction::triggered()), playlist, SLOT(QMediaPlaylist::previous()));
+    //connect(ui->actionSkip, SIGNAL(QAction::triggered()), playlist, SLOT(QMediaPlaylist::next()));
 
     //Library-Setup
 
@@ -225,16 +221,6 @@ void MainWindow::on_actionPlay_triggered()
 
 }
 
-void MainWindow::on_actionBack_triggered()
-{
-    playlist->previous();
-}
-
-void MainWindow::on_actionSkip_triggered()
-{
-    playlist->next();
-}
-
 void MainWindow::on_durationChanged(qint64 position)
 {
     ui->progress->setMaximum(position);
@@ -386,4 +372,52 @@ void MainWindow::on_actionAbout_triggered()
 void MainWindow::on_actionUpdateLibrary_triggered()
 {
     updateLibrary();
+}
+
+void MainWindow::on_searchBar_textEdited(const QString &arg1)
+{
+
+}
+
+void MainWindow::on_actionFadeOut_triggered()
+{
+    int time = (settings->value("playback/fade/fadeOutTime", qVariantFromValue(0)).toInt() * 1000) / player->volume();
+
+    while(player->volume() != 0){
+
+        player->setVolume(player->volume() - 1);
+        Sleep(time);
+    }
+
+    playlist->next();
+    player->pause();
+    player->setVolume(ui->volume->sliderPosition());
+}
+
+void MainWindow::on_actionFadeIn_triggered()
+{
+    if(player->state() != 1){
+
+        int time = (settings->value("playback/fade/fadeInTime", qVariantFromValue(0)).toInt() * 1000) / player->volume();
+
+        player->setVolume(0);
+        player->play();
+
+        while(player->volume() != ui->volume->sliderPosition()){
+
+            player->setVolume(player->volume() - 1);
+            Sleep(time);
+        }
+
+    }
+}
+
+void MainWindow::on_actionSkip_triggered()
+{
+    playlist->next();
+}
+
+void MainWindow::on_actionBack_triggered()
+{
+    playlist->previous();
 }

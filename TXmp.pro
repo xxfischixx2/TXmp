@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
            mainwindow.cpp \
-           settings.cpp
+           settings.cpp \
+    fsearchengine.cpp
 
 HEADERS  += mainwindow.h \
-            settings.h
+            settings.h \
+    fsearchengine.h
 
 FORMS    += mainwindow.ui \
             settings.ui

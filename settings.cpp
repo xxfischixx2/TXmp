@@ -1,8 +1,6 @@
 #include "settings.h"
 #include "ui_settings.h"
 #include <QFileDialog>
-#include <QDebug>
-#include <QSettings>
 #include "mainwindow.h"
 
 Settings::Settings(QWidget *parent) :
@@ -72,6 +70,10 @@ void Settings::updateSettings()
     ui->autoPlay->setChecked(settings->value("playback/autoPlay", qVariantFromValue(true)).toBool());
     ui->continuePlayingPlaySelected->setChecked(settings->value("playback/continuePlayingPlaySelected", qVariantFromValue(true)).toBool());
     ui->playbackOrder->setCurrentIndex(settings->value("playback/playbackOrder", qVariantFromValue(1)).toInt());
+    ui->autoFadeIn->setChecked(settings->value("playback/fade/autoFadeIn", qVariantFromValue(false)).toBool());
+    ui->autoFadeOut->setChecked(settings->value("playback/fade/autoFadeOut", qVariantFromValue(false)).toBool());
+    ui->fadeInTime->setText(settings->value("playback/fade/fadeInTime", qVariantFromValue(0)).toString());
+    ui->fadeOutTime->setText(settings->value("playback/fade/fadeOutTime", qVariantFromValue(0)).toString());
 
     ui->paths->clear();
 
@@ -81,4 +83,24 @@ void Settings::updateSettings()
 
         ui->paths->addItem(pathlist[i]);
     }
+}
+
+void Settings::on_autoFadeIn_toggled(bool checked)
+{
+    settings->setValue("playback/fade/autoFadeIn", checked);
+}
+
+void Settings::on_autoFadeOut_toggled(bool checked)
+{
+    settings->setValue("playback/fade/autoFadeOut", checked);
+}
+
+void Settings::on_fadeOutTime_returnPressed()
+{
+    settings->setValue("playback/fade/fadeOutTime", ui->fadeOutTime->text());
+}
+
+void Settings::on_fadeInTime_returnPressed()
+{
+    settings->setValue("playback/fade/fadeInTime", ui->fadeOutTime->text());
 }

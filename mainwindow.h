@@ -4,10 +4,6 @@
 #include <QMainWindow>
 #include <QtMultimedia>
 #include "settings.h"
-#include <QStringList>
-#include <QDir>
-#include <QSettings>
-#include <QString>
 
 namespace Ui {
 class MainWindow;
@@ -21,11 +17,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    QStringList library;
-    QStringList pathlist;
-    QStringList filters;
-    QStringList pList;
-
 private slots:
 
     void on_actionStop_triggered();
@@ -33,10 +24,6 @@ private slots:
     void on_actionPause_triggered();
 
     void on_actionPlay_triggered();
-
-    void on_actionBack_triggered();
-
-    void on_actionSkip_triggered();
 
     void on_durationChanged(qint64 position);
 
@@ -64,6 +51,16 @@ private slots:
 
     void on_actionUpdateLibrary_triggered();
 
+    void on_searchBar_textEdited(const QString &arg1);
+
+    void on_actionFadeOut_triggered();
+
+    void on_actionFadeIn_triggered();
+
+    void on_actionSkip_triggered();
+
+    void on_actionBack_triggered();
+
 private:
 
     void updateLibrary();
@@ -75,8 +72,11 @@ private:
     Ui::MainWindow *ui;
     QMediaPlayer *player;
     QMediaPlaylist *playlist;
-    QTime *time;
     QSettings *settings;
+    QStringList library;
+    QStringList pathlist;
+    QStringList filters;
+    QStringList pList;
 };
 
 #endif // MAINWINDOW_H
